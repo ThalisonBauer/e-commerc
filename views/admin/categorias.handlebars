@@ -1,0 +1,20 @@
+<h3 class="display-4" style="font-size: 30px;">Lista de categorias:</h3>
+<hr>
+<a href="/admin/categorias/add"><button type="button" class="btn btn-dark">Nova categoria</button></a>
+<div class="card mt-4">
+  <div class="card-body">
+<ul class="list-group list-group-flush"> 
+{{#each categorias}}
+
+        <li class="list-group-item">{{dataValues.nameCategoria}}   ----   
+            <small>{{dataValues.slugCategoria}}</small>
+            <a href="/admin/categorias/edit/{{dataValues.id}}"><button type="button" class="btn btn-warning float-right ml-2">Editar</button></a>
+            <a href=""><button type="button" class="btn btn-danger float-right ">Deletar</button></a>
+        </li>
+
+{{else}}
+
+{{/each}}
+</ul>
+</div>
+</div>
