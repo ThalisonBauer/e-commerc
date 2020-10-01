@@ -3,7 +3,7 @@ const db = require('../models/db');
 const router = express.Router();
 const Cliente = require('../models/Cliente');
 
-console.log({Cliente.get})
+//console.log({Cliente.get})
 /* 
 const Categoria = require('../models/Categoria'); */
 
