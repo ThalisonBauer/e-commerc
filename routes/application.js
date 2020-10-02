@@ -19,24 +19,34 @@ router.post('/application/new', function(req, res) {
     if (erros.length > 0) {
         res.render('admin/addcategorias', { erros: erros });
     } else {
-    Cliente.create({
-        nameCliente: req.body.name,
-        phoneCliente: req.body.phone,
-        emailCliente: req.body.email,
-        passwordCliente: req.body.password,
-        nameBD: req.body.bdName
 
-    }).then(function() {
-        req.flash('success_msg', 'Cliente cadastrado com sucesso!');
-        res.redirect('/');
-    }).catch(function(erro) {
-        req.flash('error_msg', 'Houve um erro ao salvar categoria, tenta novamente');
-        res.redirect('/');
-    });
+        cliente = Cliente.findOne({ where: { nameBD: req.body.bdName } });
+        if (cliente === null) {    
+                
+            Cliente.create({
+                nameCliente: req.body.name,
+                phoneCliente: req.body.phone,
+                emailCliente: req.body.email,
+                passwordCliente: req.body.password,
+                nameBD: req.body.bdName
+        
+            }).then(function() {
+                req.flash('success_msg', 'Cliente cadastrado com sucesso!');
+                res.redirect('/');
+            }).catch(function(erro) {
+                req.flash('error_msg', 'Houve um erro ao salvar categoria, tenta novamente');
+                res.redirect('/');
+            });
+        } else {
+                req.flash('error_msg', 'Loja ja existe');
+                res.redirect('/');
+        }
+
+
 
     }
 
-})
+});
 
 
 
