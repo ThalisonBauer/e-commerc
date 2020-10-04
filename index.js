@@ -9,6 +9,7 @@ const path = require('path');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
+const { listBD } = require('./models/db');
 require('./config/auth')(passport)
 
 //------------config
@@ -43,6 +44,8 @@ app.use(express.static('public'));
 app.use('/', appl);
 app.use('/painel', painel);
 
+
+console.log(listBD());
 
 
 app.listen(8081, function() {

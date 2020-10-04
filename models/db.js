@@ -15,13 +15,13 @@ const sequelize = new Sequelize('myapp', 'root', '', {
     dialect: 'mysql'
 });
 function createDB (nameBD) {
-    console.log(nameBD);
-    //openDB();
-    //connection.connect();
-    //connection.query('CREATE DATABASE '+nameBD+'');
+    openDB();
+    connection.connect();
+    connection.query('CREATE DATABASE '+nameBD+'');
 }
 
 module.exports = {
+    listBD,
     createDB,
     Sequelize: Sequelize,
     sequelize: sequelize

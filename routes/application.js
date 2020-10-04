@@ -16,13 +16,35 @@ router.post('/application/new', function(req, res) {
     if (erros.length > 0) {
         res.render('admin/addcategorias', { erros: erros });
     } else {
-         project =  Cliente.findOne({ where: { nameBD: req.body.bdName } });
-            if (project === null) {
-            console.log('Not found!');
-            } else {
-            console.log(project.nameBD); // 'My Title'
-            }
-    }
+            result = Cliente.findOne({
+                where: {nameBD: req.body.bdName}
+
+            }).then(result => {
+                if(result.nameBD === req.body.bdName){
+                    req.flash('error_msg', 'Loja ja existe');
+                    res.redirect('/');
+                }else{
+                    req.flash('error_msg', 'Houve um erro ao criar sua Loja, tenta novamente');
+                    res.redirect('/');
+                }
+            }).catch(result =>{
+                Cliente.create({
+                    nameCliente: req.body.name,
+                    phoneCliente: req.body.phone,
+                    emailCliente: req.body.email,
+                    passwordCliente: req.body.password,
+                    nameBD: req.body.bdName
+            
+                }).then(function() {
+                    createDB(req.body.bdName);
+                    req.flash('success_msg', 'Loja criada com sucesso!');
+                    res.redirect('/');
+                }).catch(function(erro) {
+                    req.flash('error_msg', 'Houve um erro ao criar sua Loja, tenta novamente');
+                    res.redirect('/');
+                });
+            });
+        }
 
 });
 
