@@ -21,7 +21,6 @@ function createDB (nameBD) {
 }
 
 module.exports = {
-    listBD,
     createDB,
     Sequelize: Sequelize,
     sequelize: sequelize

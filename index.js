@@ -4,12 +4,12 @@ const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const appl = require('./routes/application');
 const painel = require('./routes/painel');
+const ecommerc = require('./routes/ecommerc')
 const Cliente = require('./models/Cliente');
 const path = require('path');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
-const { listBD } = require('./models/db');
 require('./config/auth')(passport)
 
 //------------config
@@ -44,9 +44,16 @@ app.use(express.static('public'));
 app.use('/', appl);
 app.use('/painel', painel);
 
+result = Cliente.findAll({
+    attributes: ['nameBD']
 
-console.log(listBD());
-
+}).then(function(result){
+    var name = "cu";
+    result = JSON.stringify(result)
+    console.log(result)
+    
+    app.use('/'+name+'', ecommerc);
+}).catch(result =>{});
 
 app.listen(8081, function() {
     console.log('Servidor rodando na url 8081');
